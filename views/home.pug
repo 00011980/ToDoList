@@ -1,0 +1,27 @@
+extends layout.pug
+
+block Content 
+
+
+  form.form(action='/add' method='POST')
+    input.input(type='text' placeholder='Add your Task' name='ListOfTask')
+    button.BtnAdd Add  
+  if mistake
+    p.mistake Task is required
+
+  if added 
+    p.added Task is added 
+
+  if failure
+    p.failure Task is deleted
+  div.ListOfTasks
+    if ListOfTasks.length
+      each ListOfTask in ListOfTasks 
+        p.ListOfTask
+          if ListOfTask.adding
+            a.adding(href=`/${ ListOfTask.id}/update`) #{ ListOfTask.description }
+          else 
+            a.try(href=`/${ ListOfTask.id}/update`) #{ ListOfTask.description }
+          a.remove(href=`/${ ListOfTask.id }/delete`) Remove
+    else
+      p.ListOfTask No Tasks yet
